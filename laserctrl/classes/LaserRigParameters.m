@@ -4,15 +4,15 @@ classdef LaserRigParameters
     
     rig                         =   'LaserGalvo1'
     hasDAQ                      =   true              % false for testing on laptop
-    laserIP                     =   '128.112.218.25'  % this IP
-    virmenIP                    =   '128.112.217.208' % virmen IP
+    %laserIP                     =   '128.112.218.25'  % this IP
+    %virmenIP                    =   '128.112.217.208' % virmen IP
     
     laserPort                   =   'COM3';           % for serial communication with laser
     nidaqDevice                 =   1;                % NI-DAQ device identifier; if more than one use cell array
     
     aoChannels                  =   0:3;              % analog output Channels (use cell if more than one device)
     galvoCh                     =   [1 2];            % index of channels controlling galvos (attention for device mounting order!)
-    lsrSwitchCh                 =   3;                % channel index for turning laser on and off  %they are using the DAQ device to control the laser. how to wire them together?
+    lsrSwitchCh                 =   3;                % channel index for turning laser on and off 
     lsrWaveCh                   =   4;                % channel index for laser waveform (frequency and power)
     
     aiChannels                  =   0:3;              % analog input Channels for virmen control (use cell if mpre than one device)
