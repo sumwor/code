@@ -18,8 +18,8 @@ lsrL.prevlocationIdx    = 0;  % only change data output if ~= this
 lsrL.locationIdx        = 0;
 lsrL.dt                 = 0;
 lsrL.templog            = [];
-%lsrL.virmenState        = virmenStateCodes.NotRunning; % pre-virmen communication
-%lsrL.prevState          = virmenStateCodes.NotRunning; % pre-virmen communication
+lsrL.presentationState  = presentationStateCodes.sessionEnd; % pre-virmen communication
+lsrL.prevState          = presentationStateCodes.sessionEnd; % pre-virmen communication
 lsrL.currPower          = lsr.power; % for power-varying experiments
 lsrL.powerFactor        = 1; % for power-varying experiments
 lsrL.powers             = lsr.varyPowerLs; % for power-varying experiments
@@ -114,16 +114,21 @@ else
             
             % send experiment parameters to virmen %% we need to change
             % virmen to presentation software
-            sendExptParams;  %seems no need for these parameters
+            %sendExptParams;  %seems no need for these parameters
             
             % start log
             lsrL = laserlogger(lsrL,'init');
             
             % wait for presentation to actually start
             fprintf('waiting for presentation to start session...')
-            while lsrL.virmenState <= 0  %need a specific code for experiment start and end?
-                lsrL.prevState   = lsrL.virmenState;
+            while lsrL.presentationState == 2  %need a specific code for experiment start and end?
+                lsrL.prevState   = lsrL.presentationState;
                 DIdata           = nidaqDIread('readDI'); % receive 6-bit binary location code 
+                if DIdata=='111101'%61 trial start
+                    lsrL.presentationState=1;
+                elseif DIdata=='111100' %60 trial end
+                    lsrL.presentationState=0;
+                end
                 %if this is the location of the brain, then no need for this since matlab and this computer will be in charge of this
                 %lsrL.virmenState = bin2dec(num2str(DIdata(LaserRigParameters.virmenStateChannels))); % convert to virmen state index
             end
@@ -143,8 +148,8 @@ else
             lsrL = laserlogger(lsrL,'cleanup');
             figure(obj.fig)
             
-            set(obj.statusTxt,'String','ViRMEn done','foregroundColor','k')
-            updateConsole('ViRMEn experiment ended')
+            set(obj.statusTxt,'String','presentation done','foregroundColor','k')
+            updateConsole('Presentation experiment ended')
             % send data to virmen through tcpip (update status)
     end
 end

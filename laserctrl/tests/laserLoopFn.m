@@ -19,9 +19,9 @@ lsrL.galvoX = lsrL.galvoXinit;
 lsrL.galvoY = lsrL.galvoYinit;
 %lsrL.trigIn = lsrL.DIdata(2); %this is going to change
 %may be like these, not sure the conditioning is right or not for now....
-if lsrL.DIdata=='000000'
+if lsrL.DIdata=='111110'
     lsrL.trigIn=0;
-elseif lsrL.DIdata=='000001'
+elseif lsrL.DIdata=='111111'
     lsrL.trigIn=1;
 end
       

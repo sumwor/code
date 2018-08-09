@@ -15,11 +15,12 @@ global lsr
 tic;
 
 lsrL.prevlocationIdx = lsrL.locationIdx;
-lsrL.prevState       = lsrL.virmenState;
+lsrL.prevState       = lsrL.presentationState;
 
 % receive laser and galvo info from ViRMEn computer
 %these are not needed, we only want a trigger signal
 lsrL.DIdata      = nidaqDIread('readDI'); % receive 8-bit binary location code
+
 lsrL.locationIdx = bin2dec(num2str(lsrL.DIdata(LaserRigParameters.locationChannels))); % convert to location index
 lsrL.virmenState = bin2dec(num2str(lsrL.DIdata(LaserRigParameters.virmenStateChannels))); % convert to virmen state index
 %lsrL.virmenState is the key variable

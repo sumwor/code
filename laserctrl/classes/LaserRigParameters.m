@@ -21,8 +21,8 @@ classdef LaserRigParameters
     
     diPort                      =   0;                % port for digital input from virmen
     diChannels                  =   0:15;             % digital input channels
-    locationChannels            =   1:8;              % indices of di channels used for galvo location
-    virmenStateChannels         =   9:12;             % indices of di channel used to communicate virmen state (trial epoch)
+    locationChannels            =   1:6;              % indices of di channels used for galvo location
+    %virmenStateChannels         =   9:12;             % indices of di channel used to communicate virmen state (trial epoch)
     doPort                      =   1;                % port for digital output to virmen
     doChannels                  =   1;                % digital output channels
     doPortLED                   =   2;                % port for digital control of LED

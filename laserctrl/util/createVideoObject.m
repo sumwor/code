@@ -7,7 +7,7 @@ if isfield(obj,'vid'); delete(obj.vid); end
 obj.vid                   = videoinput('pointgrey', 1, 'F7_Mono16_1920x1200_Mode7');
 src                       = getselectedsource(obj.vid);
 src.ExposureMode          = 'Auto';
-src.FrameRatePercentage   = 50;
+%src.FrameRatePercentage   = 50;
 obj.vid.FramesPerTrigger  = 1;
 obj.vidRes                = get(obj.vid, 'VideoResolution');
 nBands                    = get(obj.vid, 'NumberOfBands');
