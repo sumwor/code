@@ -15,13 +15,14 @@ tic;
 
 % receive laser and galvo info from ViRMEn computer
 lsrL.DIdata = nidaqDIread('readDI');
+portCode=num2str(fliplr(lsrL.DIdata(1:6)));
 lsrL.galvoX = lsrL.galvoXinit;
 lsrL.galvoY = lsrL.galvoYinit;
 %lsrL.trigIn = lsrL.DIdata(2); %this is going to change
 %may be like these, not sure the conditioning is right or not for now....
-if lsrL.DIdata=='111110'
+if portCode=='111110'
     lsrL.trigIn=0;
-elseif lsrL.DIdata=='111111'
+elseif portCode=='111111'
     lsrL.trigIn=1;
 end
       
