@@ -1,5 +1,6 @@
 function lsrL = laserLoopFnTrig(lsrL)
 
+%test fetch
 global lsr 
 
 % % skip iteration if last one was too long
