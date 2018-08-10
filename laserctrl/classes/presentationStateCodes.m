@@ -12,7 +12,7 @@ classdef presentationStateCodes
 %     EndOfTrial       =   7;
 %     InterTrial       =   8;
 %     EndOfExperiment  =   9;
-     trialStart = 1;
+     trialStart = 1; 
      trialEnd   = 0;
      sessionEnd = 2;
   end

@@ -128,8 +128,8 @@ if lsrL.rampDown; lsrL.rampDownCounter = lsrL.rampDownCounter+1; end
 if lsrL.lsrON;    lsrL.lsrCounter = lsrL.lsrCounter+1;           end
 
 % new trial?
-if lsrL.prevState == presentationStateCodes.trialEnd ...
-    && lsrL.presentationState == presentationStateCodes.trialStart
+if lsrL.prevState == virmenStateCodes.InterTrial ...
+    && lsrL.virmenState == virmenStateCodes.SetUpTrial
 
     lsrL.trialCounter = lsrL.trialCounter + 1;
     fprintf('\t\ttrial #%d\n',lsrL.trialCounter);
