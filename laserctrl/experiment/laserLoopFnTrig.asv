@@ -45,12 +45,12 @@ end
 
 % if setup of the first trial is done, shut down "OK" for the
 % sake of the following trials
-if lsrL.presentationState ~= presentationStateCodes.sessionEnd %lsrL.trialCounter == 1 && 
+if lsrL.presentationState ~= 2 %lsrL.trialCounter == 1 && 
     nidaqPulse('off')
 end
 
 % experiment end?
-if lsrL.presentationState == presentationStateCodes.sessionEnd
+if lsrL.presentationState == presentationStaCodes.sessionEnd
     lsrL.stop = 1; % stop signal from virmen
 end
 
@@ -75,7 +75,7 @@ else
     lsrL.lsrON = true;
 end
 
-if lsrL.lsrON && lsrL.prevlocationIdx == 0 && lsrL.rampDown == 0
+if lsrL.lsrON && lsrL.prevlocationIdx == 0 && lsrL.rampDown == 0;
     fprintf('\t\t\tLaser ON, Galvo location %d\n',lsrL.locationIdx)
 end
 

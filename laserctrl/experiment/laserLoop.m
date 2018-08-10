@@ -124,9 +124,9 @@ else
             while lsrL.presentationState == 2  %need a specific code for experiment start and end?
                 lsrL.prevState   = lsrL.presentationState;
                 DIdata           = nidaqDIread('readDI'); % receive 6-bit binary location code 
-                if num2str(fliplr(DIdata(1:6)))=='111101'%61 trial start, the code sent by presentation is in reverse order
+                if bin2dec(num2str(fliplr(DIdata(1:6))))==61%61 trial start, the code sent by presentation is in reverse order
                     lsrL.presentationState=1;
-                elseif num2str(fliplr(DIdata(1:6)))=='111100' %60 trial end
+                elseif bin2dec(num2str(fliplr(DIdata(1:6))))==60 %60 trial end
                     lsrL.presentationState=0;
                 end
                 %if this is the location of the brain, then no need for this since matlab and this computer will be in charge of this

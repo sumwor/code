@@ -1,4 +1,4 @@
-function lsrL = laserLoopFn(lsrL)
+-function lsrL = laserLoopFn(lsrL)
 
 % skip iteration if last one was too long
 if lsrL.lastdt >= lsrL.loopTth

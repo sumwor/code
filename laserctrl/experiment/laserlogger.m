@@ -3,7 +3,7 @@ function lsrL = laserlogger(lsrL,command)
 global lsr 
 savestrtemp = sprintf('%s%s\\%s_temp.mat',lsr.savepathroot,lsr.mouseID,lsr.fn);
 savestr     = sprintf('%s%s\\%s_laserLog.mat',lsr.savepathroot,lsr.mouseID,lsr.fn);
-varlist     = {'dt';'virmenState';'locationIdx';'data'};
+varlist     = {'dt';'presentationState';'locationIdx';'data'};
 
 switch command
     case 'init'
