@@ -20,9 +20,10 @@ lsrL.prevState       = lsrL.presentationState;
 
 % receive laser and galvo info from presentation computer
 %these are not needed, we only want a trigger signal
-lsrL.DIdata      = nidaqDIread('readDI'); % receive 8-bit binary location code
+DItemp           = nidaqDIread('readDI');
+lsrL.DIdata      = num2str(fliplr(DItemp(LaserRigParameters.locationChannels))); % receive 8-bit binary location code
 
-AllIndex=bin2dec(num2str(lsrL.DIdata(LaserRigParameters.locationChannels)));
+AllIndex=bin2dec(lsrL.DIdata);
 
 %get laser and trial code
 if AllIndex==63 %laser on
@@ -54,7 +55,7 @@ if lsrL.presentationState == presentationCodes.sessionEnd
 end
 
 % reset laser counter if location change (unless it' to laser off)
-if lsrL.locationIdx ~= lsrL.prevlocationIdx;  
+if lsrL.locationIdx ~= lsrL.prevlocationIdx  
     if lsrL.locationIdx == 0 && lsrL.prevlocationIdx ~= 0 % start rampdown?
         lsrL.rampDown = 1; 
     else
@@ -105,7 +106,7 @@ lsrL = laserlogger(lsrL,'log'); % handle data and save if appropriate trial epoc
 
 % wait till iteration time is up for constant data rate, write dt
 t1 = toc;
-if t1 < lsrL.loopT;
+if t1 < lsrL.loopT
     t2=delay(lsrL.loopT-t1);
     lsrL.dt = t1+t2;
 else
