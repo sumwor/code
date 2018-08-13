@@ -13,16 +13,16 @@ if lsrL.lastdt >= lsrL.loopTth
 end
 tic;
 
-% receive laser and galvo info from ViRMEn computer
+% receive laser and galvo info from presentation computer
 lsrL.DIdata = nidaqDIread('readDI');
-portCode=num2str(fliplr(lsrL.DIdata(1:6)));
+portCode=bin2dec(num2str(fliplr(lsrL.DIdata(1:6))));
 lsrL.galvoX = lsrL.galvoXinit;
 lsrL.galvoY = lsrL.galvoYinit;
 %lsrL.trigIn = lsrL.DIdata(2); %this is going to change
 %may be like these, not sure the conditioning is right or not for now....
-if portCode=='111110'
+if portCode==62   %laser off? no 
     lsrL.trigIn=0;
-elseif portCode=='111111'
+elseif portCode==63
     lsrL.trigIn=1;
 end
       

@@ -21,10 +21,16 @@ lsrL.prevState       = lsrL.presentationState;
 % receive laser and galvo info from presentation computer
 %these are not needed, we only want a trigger signal
 DItemp           = nidaqDIread('readDI');
-lsrL.DIdata      = num2str(fliplr(DItemp(LaserRigParameters.locationChannels))); % receive 8-bit binary location code
+lsrL.DIdata      = num2str(fliplr(DItemp(LaserRigParameters.locationChannels))); % receive 6-bit binary location code
+
 
 AllIndex=bin2dec(lsrL.DIdata);
+%if AllIndex ~= lsrL.tempInd
+%    AllIndex
+%end
+%lsrL.tempInd=AllIndex;
 
+%for debugging
 %get laser and trial code
 if AllIndex==63 %laser on
     lsrL.lsrON = 1;

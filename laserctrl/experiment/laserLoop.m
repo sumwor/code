@@ -140,6 +140,7 @@ else
                 if lsr.varyPower
                     lsrL = laserLoopFnTrigVaryPower(lsrL);
                 else
+                    %lsrL.tempInd=0; %for debug
                     lsrL = laserLoopFnTrig(lsrL);
                 end
             end
