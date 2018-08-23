@@ -26,9 +26,9 @@ classdef LaserRigParameters
     doPort                      =   1;                % port for digital output to virmen
     doChannels                  =   1;                % digital output channels
     doPortLED                   =   2;                % port for digital control of LED
-    doChannelsLED               =   [2 3];            % port for digital control of LED
-    LEDIdxGreen                 =   1;                % index for green LED
-    LEDIdxIR                    =   2;                % index for green LED
+    doChannelsLED               =   2;                % port for digital control of LED  %get this to blue LED only
+    %LEDIdxGreen                 =   1;                % index for green LED
+    %LEDIdxIR                    =   2;                % index for green LED
     
     rate                        =   120;              % DAQ rate in Hz
     galvoTravelTime             =   0.5;              % in ms, approximate from multiple measurements, travel to and from combined

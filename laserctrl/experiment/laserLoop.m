@@ -25,7 +25,7 @@ lsrL.powerFactor        = 1; % for power-varying experiments
 lsrL.powers             = lsr.varyPowerLs; % for power-varying experiments
 lsrL.npowers            = numel(lsr.varyPowerLs); % for power-varying experiments
 
-if isempty(lsrL.rampDownVals);
+if isempty(lsrL.rampDownVals)
     lsrL.rampDownVals = 0;
 else
     lsrL.rampDownVals(1) = []; % first entry is full power

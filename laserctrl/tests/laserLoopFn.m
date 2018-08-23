@@ -1,4 +1,4 @@
--function lsrL = laserLoopFn(lsrL)
+function lsrL = laserLoopFn(lsrL)
 
 % skip iteration if last one was too long
 if lsrL.lastdt >= lsrL.loopTth
@@ -36,7 +36,18 @@ lsrL.data(LaserRigParameters.lsrWaveCh)   = lsrL.lsrAna;
 
 % send pulse with MEX function
 %nidaqAOPulse('aoPulse',lsrL.data);
-if lsrL.trigIn>0; nidaqPulse('on'); else nidaqPulse('off'); end
+if lsrL.trigIn>0
+    nidaqPulse('on');  %open laser
+    global obj
+    obj.LEDdataout(LaserRigParameters.doChannelsLED) = get(obj.doChannelsLED,'Value');
+
+if LaserRigParameters.hasDAQ
+  nidaqDOwrite('writeDO',obj.LEDdataout)
+end
+
+else
+    nidaqPulse('off');
+end
 
 % update iteration info
 if lsrL.lsrCounter==lsrL.vecLength; lsrL.lsrCounter = 0; end
