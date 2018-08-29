@@ -13,6 +13,7 @@ for ii = 1:length(lsrobj.locationSet)
         lsrobj.dataout(ii).vecLength = numel(lsrobj.dataout(ii).lsrVec);
         
         % galvo
+        
         [vx,vy] = convertToGalvoVoltage(lsrobj.grid(lsrobj.locationSet{ii},:),'mm');
         lsrobj.dataout(ii).galvoXvec = ones(lsrobj.dataout(ii).vecLength,1).*vx;
         lsrobj.dataout(ii).galvoYvec = ones(lsrobj.dataout(ii).vecLength,1).*vy;

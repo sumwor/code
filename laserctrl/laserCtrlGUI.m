@@ -316,7 +316,7 @@ end
 function ledGreen_callback(~,event)
 
 global obj
-obj.LEDdataout(LaserRigParameters.doChannelsLED) = get(obj.LEDgreen,'Value');
+obj.LEDdataout = 1;
 
 if LaserRigParameters.hasDAQ
   nidaqDOwrite('writeDO',obj.LEDdataout)

@@ -13,9 +13,11 @@ switch inputUnit
         x       = round(lsr.pxlPerMM*-pos(1))+ lsr.refPxl(1);  
         y       = round(lsr.pxlPerMM*-pos(2))+ lsr.refPxl(2); 
         
+        newX=y;
+        newY=1200-x;
         % go from ref. map to current image
         if ~isempty(lsr.imTform)
-            [x,y] = transformPointsInverse(lsr.imTform, x, y); 
+            [x,y] = transformPointsInverse(lsr.imTform, newX, newY);  %this part may have problem
         end
 %         
 %         % do with respect to refernce pxl (should be automatically calculated after image registration)
@@ -23,7 +25,9 @@ switch inputUnit
 %         y       = y + lsr.refPxl(2);
         
         % to voltage
-        t       = transformPointsInverse(lsr.galvoTform,[x y]);
+        t       = transformPointsInverse(lsr.galvoTform,[newX newY]);
+        %since the image is turned 90 degree, the coordinate need same
+        %transformation
         Vx      = t(1); 
         Vy      = t(2);
         

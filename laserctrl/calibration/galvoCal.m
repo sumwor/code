@@ -69,8 +69,8 @@ start(obj.vid);
 
 GridSizeX    = 11;
 GridSizeY    = 11;
-VxMin        = -1.5; VxMax = 1.5;
-VyMin        = -1.0; VyMax = 1.0;
+VxMin        = -0.8; VxMax = 0.8;
+VyMin        = -0.6; VyMax = 0.6;
 data         = [];
 GalvoVoltage = [];
 dataRead     = getdata(obj.vid, obj.vid.FramesAvailable, 'uint16'); %flush buffer
@@ -89,7 +89,7 @@ for i=1:GridSizeX
         pause(0.05)
         trigger(obj.vid);
         pause(0.05);
-        dataRead = getdata(obj.vid, obj.vid.FramesAvailable, 'uint16');
+        dataRead = getdata(obj.vid, obj.vid.FramesAvailable, 'uint16'); %rotate 90 degree in the beginning
         figure(h), imagesc(dataRead(:,:,:,1)); colormap gray; axis image; set(gca,'XDir','reverse');
         title('Different positions of the beam are being scanned.')
         if i==1 &&j==1
@@ -143,6 +143,7 @@ IntensityOfSpot = max(MaxIntensityOfFrame(:));
 for ii = 1:numFrames
     disp(['location ',num2str(ii),' out of ',num2str(numFrames)])
     
+
     % acquire image and detect beam
     BW         = im2bw(data(:,:,:,ii), 0.9);
     structDisk = strel('disk', 5);
@@ -150,7 +151,15 @@ for ii = 1:numFrames
     bw2        = imclearborder(bw2);
     structDisk = strel('disk', 1);
     STATS      = [];
+
     STATS2     = regionprops(bw2, 'Centroid','Area');
+    if length(STATS2) > 1  %assuming only 1 reflexion, so far, it is the case 8/29/2018
+        if STATS2(1).Centroid(1) < STATS2(2).Centroid(1);
+            bw2((STATS2(1).Centroid(2)-30):(STATS2(1).Centroid(2)+30),(STATS2(1).Centroid(1)-30):(STATS2(1).Centroid(1)+30)) = zeros(61,61); 
+        else
+           bw2((STATS2(2).Centroid(2)-30):(STATS2(2).Centroid(2)+30),(STATS2(2).Centroid(1)-30):(STATS2(2).Centroid(1)+30)) = zeros(61,61);
+        end   
+    end
     while ~isempty(STATS2)
         STATS=STATS2;
         bw3=bw2;

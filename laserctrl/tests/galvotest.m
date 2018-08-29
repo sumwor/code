@@ -1,5 +1,5 @@
 clear
-rootdir = 'C:\Users\tankadmin\Data\';
+rootdir = 'C:\Users\kwanlab\Data\';
 cd(rootdir)
 DAQs = DAQctrlLsr([],'init');
 

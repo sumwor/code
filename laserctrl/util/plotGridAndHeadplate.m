@@ -11,7 +11,8 @@ cla
 end
 
 % image
-imagesc(obj.camData); colormap gray; axis image; hold on
+imagesc(rot90(obj.camData,-1)); colormap gray; axis image; hold on
+%imagesc(obj.camData); colormap gray; axis image; hold on
 set(gca,'XDir','reverse','xtick',[],'ytick',[]);
 
 % bregma

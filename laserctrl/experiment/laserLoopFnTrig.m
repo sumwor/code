@@ -33,17 +33,27 @@ AllIndex=bin2dec(lsrL.DIdata);
 %for debugging
 %get laser and trial code
 if AllIndex==63 %laser on
-    lsrL.lsrON = 1;
+    lsrL.lsrON = true;
+    lsrL.blueLED = 1;
 elseif AllIndex==62  %laser off
-    lsrL.lsrON = 0;
+    lsrL.lsrON =  false;
+    lsrL.blueLED = 1;  %blue LED will always on when it is in the laser period
 elseif AllIndex==61 %trial start
     lsrL.presentationState = 1;
+    lsrL.blueLED = 0;
+    lsrL.lsrON =  false;
 elseif AllIndex==60 %trial end
     lsrL.presentationState = 0;
+    lsrL.blueLED = 0;
+    lsrL.lsrON =  false;
 elseif AllIndex==59  %session end
     lsrL.presentationState = 2;
+    lsrL.blueLED = 0;
+    lsrL.lsrON =  false;
 else
     lsrL.locationIdx = AllIndex;
+    lsrL.lsrON =  false;
+    lsrL.blueLED = 0;
 end
 %lsrL.locationIdx = bin2dec(num2str(lsrL.DIdata(LaserRigParameters.locationChannels))); % convert to location index
 %lsrL.presentationState = bin2dec(num2str(lsrL.DIdata(LaserRigParameters.virmenStateChannels))); % convert to virmen state index
@@ -75,17 +85,26 @@ if lsrL.rampDown && lsrL.rampDownCounter == 1
 end 
 
 % laser ON or OFF?
-if lsrL.stop || (lsrL.locationIdx == 0 && lsrL.rampDown == 0)
-    lsrL.lsrON = false;
-else
-    lsrL.lsrON = true;
-end
+% if lsrL.stop || (lsrL.locationIdx == 0 && lsrL.rampDown == 0)
+%     lsrL.lsrON = false;
+% else
+%     lsrL.lsrON = true;
+% end
 
 if lsrL.lsrON && lsrL.prevlocationIdx == 0 && lsrL.rampDown == 0
     fprintf('\t\t\tLaser ON, Galvo location %d\n',lsrL.locationIdx)
 end
 
 % output data
+if lsrL.blueLED == 1
+    %obj.LEDdataout = 1;
+    %nidaqDOwrite('writeDO',obj.LEDdataout);
+    nidaqDOwrite('writeDO',1);
+else
+    %obj.LEDdataout = 0;
+    %nidaqDOwrite('writeDO',obj.LEDdataout);
+    nidaqDOwrite('writeDO',0);
+end
 if ~ lsrL.lsrON
     lsrL.data = zeros(1,4);
 else
@@ -105,6 +124,7 @@ end
 
 % send AO data with MEX function
 nidaqAOPulse('aoPulse',lsrL.data); % laser switch channel also goes to virmen
+
 
 lsrL = updateCounters(lsrL); % update iteration info
 

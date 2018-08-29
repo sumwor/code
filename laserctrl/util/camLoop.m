@@ -20,7 +20,7 @@ while ~ stopL
     delay(0.001);
     dataRead    = getdata(obj.vid, obj.vid.FramesAvailable, 'uint8');
     obj.camData = dataRead(:,:,:,end);
-    flushdata(obj.vid)
+    flushdata(obj.vid)  %clear the memory
     if isempty(dataRead); continue; else clear dataRead; end
     
     % plot

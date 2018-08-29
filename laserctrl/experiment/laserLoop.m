@@ -13,6 +13,7 @@ lsrL.rampDownVals       = linspace(1,0,LaserRigParameters.rate*lsr.rampDownDur);
 lsrL.ii                 = 1; % iteration number
 lsrL.lsrCounter         = 1; % to cycle thorugh galvo/laser "buffered" data
 lsrL.lsrON              = false; % boolean to decide if laser is ON or not
+lsrL.blueLED            = 0;    %boolean to decide whether blue light mask is ON or not (ON in laser period, despite laser ON or OFF)
 lsrL.data               = zeros(1,4); % current data output
 lsrL.prevlocationIdx    = 0;  % only change data output if ~= this
 lsrL.locationIdx        = 0;

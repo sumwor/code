@@ -28,20 +28,22 @@ if      ClickedPosition(1)>= 1             && ...
         ClickedPosition(2)>= 1             && ...
         ClickedPosition(2)<= obj.vidRes(2)
     
+    %coordinate transformation
+    newPos=[ClickedPosition(2), 1200-ClickedPosition(1)];
     NewGalvoVoltage = transformPointsInverse(lsr.galvoTform,ClickedPosition);
-    
+    NewGalvoVoltage_exp = transformPointsInverse(lsr.galvoTform,newPos);
     switch mode
         case 'experiment'
-            lsr.galvoManualVx = NewGalvoVoltage(1);
-            lsr.galvoManualVy = NewGalvoVoltage(2);
+            lsr.galvoManualVx = NewGalvoVoltage_exp(1);
+            lsr.galvoManualVy = NewGalvoVoltage_exp(2);
             lsr.dataout_manual.galvoXvec = ones(lsr.dataout_manual.vecLength,1).*lsr.galvoManualVx;
             lsr.dataout_manual.galvoYvec = ones(lsr.dataout_manual.vecLength,1).*lsr.galvoManualVy;
             
             dataout = zeros(1,4);
             dataout(LaserRigParameters.lsrSwitchCh) = 5;
             dataout(LaserRigParameters.lsrWaveCh)   = vlsr;
-            dataout(LaserRigParameters.galvoCh(1)) = NewGalvoVoltage(1);
-            dataout(LaserRigParameters.galvoCh(2)) = NewGalvoVoltage(2);
+            dataout(LaserRigParameters.galvoCh(1)) = NewGalvoVoltage_exp(1);
+            dataout(LaserRigParameters.galvoCh(2)) = NewGalvoVoltage_exp(2);
             nidaqAOPulse('aoPulse',dataout);
         case 'calibration'
             dataout = zeros(1,4);
