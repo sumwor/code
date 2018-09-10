@@ -109,9 +109,9 @@ end
 if ~ lsrL.lsrON && lsrL.locationIdx ~= 0 %galvo move even laser is off
     
     %lsrL.data = zeros(1,4);
-    lsrL.data(LaserRigParameters.galvoCh(1))  = lsr.dataout(lsrL.locationIdx).galvoXvec;
-    lsrL.data(LaserRigParameters.galvoCh(2))  = lsr.dataout(lsrL.locationIdx).galvoYvec;
-    lsrL.data(LaserRigParameters.lsrWaveCh)   = lsr.dataout(lsrL.locationIdx).lsrVec;
+    lsrL.data(LaserRigParameters.galvoCh(1))  = lsr.dataout(lsrL.locationIdx).galvoXvec(lsrL.lsrCounter);
+    lsrL.data(LaserRigParameters.galvoCh(2))  = lsr.dataout(lsrL.locationIdx).galvoYvec(lsrL.lsrCounter);
+    lsrL.data(LaserRigParameters.lsrWaveCh)   = lsr.dataout(lsrL.locationIdx).lsrVec(lsrL.lsrCounter);
     lsrL.data(LaserRigParameters.lsrSwitchCh) = 0;
 elseif lsrL.locationIdx == 0
     lsrL.data = zeros(1,4);       
@@ -119,14 +119,14 @@ else
     lsrL.data(LaserRigParameters.lsrSwitchCh) = 5;
     
     if lsrL.rampDown % ramp down laser power according to rampDownVals
-        lsrL.data(LaserRigParameters.galvoCh(1))  = lsr.dataout(lsrL.rampDownlocationIdx).galvoXvec;
-        lsrL.data(LaserRigParameters.galvoCh(2))  = lsr.dataout(lsrL.rampDownlocationIdx).galvoYvec;
+        lsrL.data(LaserRigParameters.galvoCh(1))  = lsr.dataout(lsrL.rampDownlocationIdx).galvoXvec(lsrL.lsrCounter);
+        lsrL.data(LaserRigParameters.galvoCh(2))  = lsr.dataout(lsrL.rampDownlocationIdx).galvoYvec(lsrL.lsrCounter);
         lsrL.data(LaserRigParameters.lsrWaveCh)   = ...
-            lsr.dataout(lsrL.rampDownlocationIdx).lsrVec(lsrL.lsrCounter)*lsrL.rampDownVals;
+            lsr.dataout(lsrL.rampDownlocationIdx).lsrVec(lsrL.lsrCounter)*lsrL.rampDownVals(lsrL.rampDownCounter);
     else
-        lsrL.data(LaserRigParameters.galvoCh(1))  = lsr.dataout(lsrL.locationIdx).galvoXvec;
-        lsrL.data(LaserRigParameters.galvoCh(2))  = lsr.dataout(lsrL.locationIdx).galvoYvec;
-        lsrL.data(LaserRigParameters.lsrWaveCh)   = lsr.dataout(lsrL.locationIdx).lsrVec;
+        lsrL.data(LaserRigParameters.galvoCh(1))  = lsr.dataout(lsrL.locationIdx).galvoXvec(lsrL.lsrCounter);
+        lsrL.data(LaserRigParameters.galvoCh(2))  = lsr.dataout(lsrL.locationIdx).galvoYvec(lsrL.lsrCounter);
+        lsrL.data(LaserRigParameters.lsrWaveCh)   = lsr.dataout(lsrL.locationIdx).lsrVec(lsrL.lsrCounter);
     end
 end
 
@@ -148,20 +148,19 @@ else
 end
 end
 
-%no need to keep lsrCounter
 function lsrL = updateCounters(lsrL)
-% 
+
 global lsr 
-% 
-% if lsrL.lsrCounter==lsr.dataout(1).vecLength; lsrL.lsrCounter = 0; end
-% if lsrL.rampDownCounter==lsrL.rampDownMax 
-%     lsrL.rampDownCounter = 1; 
-%     lsrL.rampDown = 0; 
-%     lsrL.lsrCounter = 1;
-% end
-% 
-% if lsrL.rampDown; lsrL.rampDownCounter = lsrL.rampDownCounter+1; end 
-% if lsrL.lsrON;    lsrL.lsrCounter = lsrL.lsrCounter+1;           end
+
+if lsrL.lsrCounter==lsr.dataout(1).vecLength; lsrL.lsrCounter = 0; end
+if lsrL.rampDownCounter==lsrL.rampDownMax 
+    lsrL.rampDownCounter = 1; 
+    lsrL.rampDown = 0; 
+    lsrL.lsrCounter = 1;
+end
+
+if lsrL.rampDown; lsrL.rampDownCounter = lsrL.rampDownCounter+1; end 
+if lsrL.lsrON;    lsrL.lsrCounter = lsrL.lsrCounter+1;           end
 
 % new trial?
 if lsrL.prevState == presentationStateCodes.trialEnd ...

@@ -22,9 +22,8 @@ for ii = 1:length(lsrobj.locationSet)
         lsrobj.dataout(ii).galvoXvec = ones(lsrobj.dataout(ii).vecLength,1).*vx;
         lsrobj.dataout(ii).galvoYvec = ones(lsrobj.dataout(ii).vecLength,1).*vy;
     else
-        % galvo  %this is for stimulate different site (almost)
-        % simutaneously?
-        szg = 1;
+        % galvo
+        szg = (1000/lsrobj.galvofreq)*(LaserRigParameters.rate/1000);
         x = []; y =[];
         for jj = 1:numel(lsrobj.locationSet{ii})   
             [vx,vy] = convertToGalvoVoltage(lsrobj.grid{ii}(lsrobj.locationSet{ii}(jj),:),'mm');
@@ -50,8 +49,9 @@ for ii = 1:length(lsrobj.locationSet)
 end
 
 % calculate 1 sec of manually set galvo / laser data
-szl = 1;
-lsrobj.dataout_manual.lsrVec = lsrobj.Vlsr;
+szl = (1000/lsrobj.freq)*(LaserRigParameters.rate/1000);
+lsrobj.dataout_manual.lsrVec = repmat([ones(floor(szl*lsrobj.dutyCycle),1); ...
+    zeros(ceil(szl*(1-lsrobj.dutyCycle)),1)],lsrobj.freq,1).*lsrobj.Vlsr;
 lsrobj.dataout_manual.vecLength = numel(lsrobj.dataout_manual.lsrVec);
 
 % galvo
