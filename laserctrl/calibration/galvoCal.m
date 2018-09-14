@@ -67,10 +67,10 @@ resX = obj.vidRes(1); resY = obj.vidRes(2);
 
 start(obj.vid);
 
-GridSizeX    = 11;
-GridSizeY    = 11;
-VxMin        = -0.8; VxMax = 0.8;
-VyMin        = -0.6; VyMax = 0.6;
+GridSizeX    = 9;
+GridSizeY    = 9;
+VxMin        = -1.0; VxMax = 1.0;
+VyMin        = -0.7; VyMax = 0.7;
 data         = [];
 GalvoVoltage = [];
 dataRead     = getdata(obj.vid, obj.vid.FramesAvailable, 'uint16'); %flush buffer
@@ -154,7 +154,9 @@ for ii = 1:numFrames
 
     STATS2     = regionprops(bw2, 'Centroid','Area');
     if length(STATS2) > 1  %assuming only 1 reflexion, so far, it is the case 8/29/2018
-        if STATS2(1).Centroid(1) < STATS2(2).Centroid(1);
+        %get rid of the lower left reflexion..
+        %in new set up it seems to be the upper right?
+        if STATS2(1).Centroid(1) < STATS2(2).Centroid(1)
             bw2((STATS2(1).Centroid(2)-30):(STATS2(1).Centroid(2)+30),(STATS2(1).Centroid(1)-30):(STATS2(1).Centroid(1)+30)) = zeros(61,61); 
         else
            bw2((STATS2(2).Centroid(2)-30):(STATS2(2).Centroid(2)+30),(STATS2(2).Centroid(1)-30):(STATS2(2).Centroid(1)+30)) = zeros(61,61);
@@ -176,6 +178,12 @@ for ii = 1:numFrames
     end
 end
 
+%for 9/11/2018 4:48pm calibration
+Beam(2,:)=[0,0];
+% Beam(18,:)=[0,0];
+% Beam(20,:)=[0,0];
+% Beam(21,:)=[0,0];
+% Beam(29,:)=[0,0];
 %% linear fit
 BeamMM          = Beam./pxlPerMM;
 galvoCal.BeamMM = BeamMM;

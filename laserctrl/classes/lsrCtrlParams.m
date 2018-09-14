@@ -43,7 +43,7 @@ classdef lsrCtrlParams
     Vlsr_preset
     
     % galvo calibration
-    pxlPerMM       = 57;        % measured using Photoshop, roughly 57 pixel/mm, 8/20/18
+    pxlPerMM       = 43.7;        % measured using Photoshop, roughly 44 pixel/mm, 8/20/18
     refPxl         = [600 960]; % reference (zero) pixel, center of image for session start
     refIm                       % reference image of the skull (on which coordinates are calculated)
     currIm                      % current image of the skull (to which coordinates are transformed)
