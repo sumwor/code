@@ -53,12 +53,12 @@ elseif lsrL.DICode==60 %trial end
     lsrL.presentationState = 0;
     lsrL.blueLED = 0;
     lsrL.lsrON =  false;
-elseif DICode==59  %session end
+elseif lsrL.DICode==59  %session end
     lsrL.presentationState = 2;
     lsrL.blueLED = 0;
     lsrL.lsrON =  false;
 else
-    lsrL.locationIdx = DICode;
+    lsrL.locationIdx = lsrL.DICode;
     lsrL.lsrON =  false;
     lsrL.blueLED = 0;
 end
