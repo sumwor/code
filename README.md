@@ -35,5 +35,5 @@
 - DIdata: original 6 bits binary input from presentation
 - DICode: decimal code
 - time: the time when code are received (in s), up to 8 ms error (due to iteration frequency)
-### 3.3 notice
+### 3.3. notice
 - a temp file is saved every trial, which takes roughly 30 ms. This could compromise the next digital input that is too short.
