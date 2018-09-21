@@ -195,10 +195,7 @@ if lsrL.prevState == presentationStateCodes.trialEnd ...
     % 1.  for cfos experiment, the startexpt event should last for at least 50
     % ms to make sure matlab can receive the position code following the
     % save
-    % 2. for behavior tasks, the saving should occur at intertrial interval
-    % (should we add more presentation state code? perhaps at least add an 
-    % intertrial interval code)
-    % Hongli 9/21/18
+    % 2. for behavior tasks, the saving should occur
 else
     %if lsrL.prevDI ~= lsrL.DIdata
     if ~strcmp(lsrL.prevDI, lsrL.DIdata)

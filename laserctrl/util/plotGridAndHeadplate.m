@@ -50,8 +50,9 @@ for ii = 1:length(lsr.grid)
         x  = round(lsr.pxlPerMM*-lsr.grid(ii,1)) + lsr.refPxl(1);
         y  = round(lsr.pxlPerMM*-lsr.grid(ii,2)) + lsr.refPxl(2);
         % go from ref. map to current image
+        %newX=y; newY=1200-x;
         if ~isempty(lsr.imTform)
-            [x,y] = transformPointsInverse(lsr.imTform, x, y);
+            [x,y] = transformPointsInverse(lsr.imTform,x, y);
         end
         text(x,y,num2str(ii),'color',cl{1},'horizontalAlignment','center')
         

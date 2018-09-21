@@ -17,7 +17,10 @@ lsrL.blueLED            = 0;    %boolean to decide whether blue light mask is ON
 lsrL.data               = zeros(1,4); % current data output
 lsrL.prevlocationIdx    = 0;  % only change data output if ~= this
 lsrL.locationIdx        = 0;
-lsrL.dt                 = 0;
+lsrL.dt1                = 0;
+lsrL.dt2                = 0;
+lsrL.dt3                = 0;
+lsrL.dt4                = 0;
 lsrL.templog            = [];
 lsrL.presentationState  = presentationStateCodes.sessionEnd; % pre-virmen communication
 lsrL.prevState          = presentationStateCodes.sessionEnd; % pre-virmen communication
@@ -25,7 +28,12 @@ lsrL.currPower          = lsr.power; % for power-varying experiments
 lsrL.powerFactor        = 1; % for power-varying experiments
 lsrL.powers             = lsr.varyPowerLs; % for power-varying experiments
 lsrL.npowers            = numel(lsr.varyPowerLs); % for power-varying experiments
-
+lsrL.time               = 0;
+lsrL.timestart          = curTime(4)*3600+curTime(5)*60+curTime(6);
+lsrL.prevDI             = '0  0  0  0  0  0';
+lsrL.DIdata             = '0  0  0  0  0  0';
+lsrL.DICode             = 0;
+% lsrL.binCode            = '000000';
 if isempty(lsrL.rampDownVals)
     lsrL.rampDownVals = 0;
 else
