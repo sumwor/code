@@ -1,15 +1,15 @@
 function lsrL = savelog(lsrL)
 
-global lsrL
-
+%global lsrL
+global lsr
 
 info.rigParams            = class2struct(LaserRigParameters);
 info.exptParams           = class2struct(lsr);
 %info.exptParams.startTime = datestr(datetime,'HHMMSS');
 info.exptParams.endTime = datestr(datetime,'HHMMSS');
-save(lsrL.savestr,'info');
+log.info = info;
 
-log = lsrL.temp;
+log.trial = lsrL.templog;
 save(lsrL.savestr, 'log');
 
 end

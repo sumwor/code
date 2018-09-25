@@ -45,10 +45,9 @@ if lsrL.DICode==63 %laser on
 elseif lsrL.DICode==62  %laser off
     lsrL.lsrON =  false;
     lsrL.blueLED = 1;  %blue LED will always on when it is in the laser period
-% elseif lsrL.DICode==61 %trial start
-%     lsrL.save = 1;
-%     lsrL.blueLED = 0;
-%     lsrL.lsrON =  false;
+elseif lsrL.DICode==61 %session start
+    lsrL.blueLED = 0;
+    lsrL.lsrON =  false;
 % elseif lsrL.DICode==60 %trial end   %remove it or save it?
 %     lsrL.presentationState = 0;
 %     lsrL.blueLED = 0;
@@ -102,8 +101,10 @@ end
 
 
 %changed the condition
-if lsrL.lsrON %&& lsrL.prevlocationIdx == 0 && lsrL.rampDown == 0
-    fprintf('\t\t\tLaser ON, Galvo location %d\n',lsrL.locationIdx)
+if ~strcmp(lsrL.prevDI, lsrL.DIdata)
+    if lsrL.lsrON %&& lsrL.prevlocationIdx == 0 && lsrL.rampDown == 0
+        fprintf('\t\t\tLaser ON, Galvo location %d\n',lsrL.locationIdx)
+    end
 end
 
 % turn on the blue LED (masking light)
@@ -145,7 +146,7 @@ end
 nidaqAOPulse('aoPulse',lsrL.data); % laser switch channel also goes to virmen
 
 
-lsrL = updateCounters(lsrL); % update iteration info
+% lsrL = updateCounters(lsrL); % update iteration info
 
 %add code to make sure only add log entries when the DI input has changed:
 %Done! 09/24/18
@@ -163,16 +164,17 @@ if t1< lsrL.loopT
 else
     lsrL.dt = t1;
 end
-end
+
 
 %add one entry to lsrL.templog if digital code changes
 if ~strcmp(lsrL.prevDI, lsrL.DIdata)
     for jj = 1:length(lsrL.varlist)
-        eval(sprintf('lsrL.templog(lsrL.saveCount, jj) = lsrL.%s;', varlist{jj}))
+        eval(sprintf('lsrL.templog(lsrL.saveCount, jj) = {lsrL.%s};', lsrL.varlist{jj}))
     end
     lsrL.saveCount = lsrL.saveCount +1;
 end
 
+end
 %no need to do counters
 % function lsrL = updateCounters(lsrL)
 % % 

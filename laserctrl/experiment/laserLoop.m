@@ -22,7 +22,7 @@ lsrL.dt                 = 0;
 % lsrL.dt2                = 0;
 % lsrL.dt3                = 0;
 % lsrL.dt4                = 0;
-lsrL.templog            = cell(1000, 4);
+lsrL.templog            = cell(1000, 3);
 lsrL.presentationState  = presentationStateCodes.sessionEnd; % pre-virmen communication
 lsrL.prevState          = presentationStateCodes.sessionEnd; % pre-virmen communication
 lsrL.currPower          = lsr.power;       % for power-varying experiments
@@ -139,10 +139,10 @@ else
             while lsrL.presentationState == 2  %need a specific code for experiment start and end?
                 lsrL.prevState   = lsrL.presentationState;
                 DIdata           = nidaqDIread('readDI'); % receive 6-bit binary location code 
-                if bin2dec(num2str(fliplr(DIdata(1:6))))==61%61 trial start, the code sent by presentation is in reverse order
+                if bin2dec(num2str(fliplr(DIdata(1:6))))==61%61 session start, the code sent by presentation is in reverse order
                     lsrL.presentationState=1;
-                elseif bin2dec(num2str(fliplr(DIdata(1:6))))==60 %60 trial end
-                    lsrL.presentationState=0;
+%                 elseif bin2dec(num2str(fliplr(DIdata(1:6))))==60 %60 trial end
+%                     lsrL.presentationState=0;
                 end
                 %if this is the location of the brain, then no need for this since matlab and this computer will be in charge of this
                 %lsrL.virmenState = bin2dec(num2str(DIdata(LaserRigParameters.virmenStateChannels))); % convert to virmen state index
