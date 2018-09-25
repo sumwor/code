@@ -150,7 +150,7 @@ lsrL = updateCounters(lsrL); % update iteration info
 %add code to make sure only add log entries when the DI input has changed:
 %Done! 09/24/18
 
-% lsrL = laserlogger(lsrL,'log'); % handle data and save if appropriate trial epoch
+lsrL = laserlogger(lsrL,'log'); % handle data and save if appropriate trial epoch
 % end
 
 t1=toc; %this tic & toc is to set the iteration frequency
@@ -168,9 +168,8 @@ end
 %add one entry to lsrL.templog if digital code changes
 if ~strcmp(lsrL.prevDI, lsrL.DIdata)
     for jj = 1:length(lsrL.varlist)
-        eval(sprintf('lsrL.templog(lsrL.saveCount, jj) = lsrL.%s;', varlist{jj}))
+        eval(sprintf('lsrL.templog.%s(lsrL.ii,:) = lsrL.%s;',varlist{jj},varlist{jj}))
     end
-    lsrL.saveCount = lsrL.saveCount +1;
 end
 
 %no need to do counters

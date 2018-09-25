@@ -25,8 +25,8 @@ lsrL.dt                 = 0;
 lsrL.templog            = cell(1000, 4);
 lsrL.presentationState  = presentationStateCodes.sessionEnd; % pre-virmen communication
 lsrL.prevState          = presentationStateCodes.sessionEnd; % pre-virmen communication
-lsrL.currPower          = lsr.power;       % for power-varying experiments
-lsrL.powerFactor        = 1;               % for power-varying experiments
+lsrL.currPower          = lsr.power; % for power-varying experiments
+lsrL.powerFactor        = 1; % for power-varying experiments
 lsrL.powers             = lsr.varyPowerLs; % for power-varying experiments
 lsrL.npowers            = numel(lsr.varyPowerLs); % for power-varying experiments
 lsrL.time               = 0;
@@ -35,9 +35,8 @@ lsrL.timestart          = curTime(4)*3600+curTime(5)*60+curTime(6);
 lsrL.prevDI             = '0  0  0  0  0  0';
 lsrL.DIdata             = '0  0  0  0  0  0';
 lsrL.DICode             = 0;
-lsrL.varlist            = {'DIdata';'DICode';'time'};
+lsrL.varlist            = {'DIdata';'DICode';'time';'dt'};
 lsrL.saveCount          = 1;
-lsrL.savestr            = sprintf('%s%s\\%s_laserLog.mat',lsr.savepathroot,lsr.mouseID,lsr.fn);
 
 
 if isempty(lsrL.rampDownVals)
@@ -147,7 +146,7 @@ else
                 %if this is the location of the brain, then no need for this since matlab and this computer will be in charge of this
                 %lsrL.virmenState = bin2dec(num2str(DIdata(LaserRigParameters.virmenStateChannels))); % convert to virmen state index
             end
-            %lsrL.trialCounter = 1;
+            lsrL.trialCounter = 1;
             
             % let the fun begin!
             fprintf('\nstarting\n\t\ttrial #1\n')
@@ -161,10 +160,8 @@ else
             end
             
             % save (update status)
-            %lsrL = laserlogger(lsrL,'cleanup');
-            %figure(obj.fig)
-            %save the laserlog temp file: lsrL.templog
-            savelog(lsrL);
+            lsrL = laserlogger(lsrL,'cleanup');
+            figure(obj.fig)
             
             set(obj.statusTxt,'String','presentation done','foregroundColor','k')
             updateConsole('Presentation experiment ended')
