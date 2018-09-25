@@ -32,16 +32,16 @@ end
 updateConsole('session started')
 
 % if last quick cal was performed longer than 48h ago, do it
-set(obj.statusTxt,'foregroundcolor','r'); drawnow()
-set(obj.statusTxt,'String','Performing quick power calibration...'); drawnow()
+% set(obj.statusTxt,'foregroundcolor','r'); drawnow()
+% set(obj.statusTxt,'String','Performing quick power calibration...'); drawnow()
 % lsr = quickPowerCal(lsr);
-updateConsole(lsr.powerCalcheckMsg)
-set(obj.statusTxt,'String','Idle','foregroundcolor',[.3 .3 .3])
+% updateConsole(lsr.powerCalcheckMsg)
+% set(obj.statusTxt,'String','Idle','foregroundcolor',[.3 .3 .3])
 end
 
 %%
 %==========================================================================
-%% CAMERA CALLBACKS
+%%CAMERA CALLBACKS
 %==========================================================================
 
 % camera on/off

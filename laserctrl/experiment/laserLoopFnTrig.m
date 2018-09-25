@@ -18,7 +18,7 @@ tic;
 
 lsrL.prevlocationIdx = lsrL.locationIdx;
 lsrL.prevState       = lsrL.presentationState;
-lsrL.prevDI      = lsrL.DIdata;
+lsrL.prevDI          = lsrL.DIdata;
 % receive laser and galvo info from presentation computer
 %these are not needed, we only want a trigger signal
 DItemp           = nidaqDIread('readDI');
