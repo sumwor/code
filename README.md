@@ -6,7 +6,7 @@
 * 61: trial start ---- presentationstatecode: 1
 * 60: trial end   ---- presentationstatecode: 0
 * 59: session end ---- presentationstatecode: 2
-* 58: intertrial interval ---- presentationstatecode: 3 (plan to include later, for save temp log)
+* 58: intertrial interval ---- presentationstatecode: 3 (remove trial end?)
 * 1-57： position code
 
 
@@ -17,11 +17,11 @@
   2) cam ON
   3) load grid
     - check laser power and position
-    
+
     3.5.  no need to register for now - plan to add this feature in the future
-  
+
   4) presentation
-  
+
 ### 2.2. presentation
 
   1) run scenario
@@ -29,7 +29,7 @@
 
 ## 3. logfile entries
 ### 3.1. info
-- rig parameters 
+- rig parameters
 - expt parameters
 ### 3.2. trial
 - DIdata: original 6 bits binary input from presentation
