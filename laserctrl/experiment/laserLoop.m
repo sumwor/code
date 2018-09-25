@@ -35,7 +35,7 @@ lsrL.timestart          = curTime(4)*3600+curTime(5)*60+curTime(6);
 lsrL.prevDI             = '0  0  0  0  0  0';
 lsrL.DIdata             = '0  0  0  0  0  0';
 lsrL.DICode             = 0;
-% lsrL.binCode            = '000000';
+
 if isempty(lsrL.rampDownVals)
     lsrL.rampDownVals = 0;
 else

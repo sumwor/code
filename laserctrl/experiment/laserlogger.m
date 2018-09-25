@@ -31,7 +31,7 @@ switch command
                 lsrL.templog = [];
             else
                 if lsrL.save
-                    tic;
+%                     tic;
                     % save previous trial
                     if lsr.varyPower
                         lsrL.templog.power = lsrL.prevPower;
@@ -40,7 +40,7 @@ switch command
                     save(savestrtemp,sprintf('trial%d',lsrL.trialCounter-1),'-append')
                     lsrL.lastSavedTrial = lsrL.trialCounter-1;
                     lsrL.save = 0;
-                    lsrL.dt4=toc;
+%                     lsrL.dt4=toc;
                     % start new trial log
                     lsrL.templog = [];
                     for jj = 1:length(varlist)
@@ -50,8 +50,9 @@ switch command
                     %                 % tell virmen it's ok to move on
                     %                 nidaqPulse('on');
                 else
-                    lsrL.dt4 = 0;
+%                     lsrL.dt4 = 0;
                     % ATTENTION: dt is from previous iteration
+                    %only save the entry when the digital input has changed
                     if ~strcmp(lsrL.prevDI, lsrL.DIdata)
                         for jj = 1:length(varlist)
                             eval(sprintf('lsrL.templog.%s(lsrL.ii,:) = lsrL.%s;',varlist{jj},varlist{jj}))
