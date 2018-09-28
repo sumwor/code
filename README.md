@@ -3,11 +3,9 @@
 ## 1. digital output code
 * 63: laser on
 * 62: laser off
-* 61: trial start ---- presentationstatecode: 1
-* 60: trial end   ---- presentationstatecode: 0
-* 59: session end ---- presentationstatecode: 2
-* 58: intertrial interval ---- presentationstatecode: 3 (remove trial end?)
-* 1-57： position code
+* 61: session start ---- presentationstatecode: 1
+* 60: session end   ---- presentationstatecode: 0
+* 1-59： position code
 
 
 ## 2. work flow
@@ -36,4 +34,4 @@
 - DICode: decimal code
 - time: the time when code are received (in s), up to 8 ms error (due to iteration frequency)
 ### 3.3. notice
-- a temp file is saved every trial, which takes roughly 30 ms. This could compromise the next digital input that is too short.
+- no temp file will be saved. A 3*1000 variable is uesd for store the whole log and saved when session end
