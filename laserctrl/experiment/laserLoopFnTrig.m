@@ -48,11 +48,7 @@ elseif lsrL.DICode==62  %laser off
 elseif lsrL.DICode==61 %session start
     lsrL.blueLED = 0;
     lsrL.lsrON =  false;
-% elseif lsrL.DICode==60 %trial end   %remove it or save it?
-%     lsrL.presentationState = 0;
-%     lsrL.blueLED = 0;
-%     lsrL.lsrON =  false;
-elseif lsrL.DICode==59  %session end
+elseif lsrL.DICode==60  %session end
     lsrL.presentationState = 2;
     lsrL.blueLED = 0;
     lsrL.lsrON =  false;
